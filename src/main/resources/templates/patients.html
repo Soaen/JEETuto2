@@ -39,7 +39,7 @@
                             <td th:text="${p.malade}"></td>
                             <td th:text="${p.score}"></td>
                             <td>
-                                <a class="btn btn-warning" th:href="@{delete(id=${p.id}, keyword=${keyword}, page=${currentPage})}">
+                                <a onclick="return confirm('Êtes-vous sûr de supprimer cette personne ?')" class="btn btn-warning" th:href="@{delete(id=${p.id}, keyword=${keyword}, page=${currentPage})}">
                                     Supprimer
                                 </a>
                             </td>

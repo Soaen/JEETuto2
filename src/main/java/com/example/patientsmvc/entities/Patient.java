@@ -11,7 +11,7 @@ import java.util.Date;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class Patient {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     private Long id;
     private String nom;
 
