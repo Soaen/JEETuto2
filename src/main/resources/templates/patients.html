@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,6 +10,17 @@
         <div class="card">
             <div class="card-header">Liste des patients</div>
                 <div class="card-body">
+
+                    <form method="get" th:action="@{index}">
+
+                        <label>Recherche: </label>
+                        <label>
+                            <input type="text" name="keyword" th:value="${keyword}">
+                        </label>
+                        <button type="submit" class="btn btn-danger">Chercher</button>
+
+                    </form>
+
                     <table class="table">
                         <thead>
                         <tr>
@@ -32,8 +43,10 @@
                     </table>
                     <ul class="nav nav-pills">
                         <li th:each="page,status:${pages}">
-                            <a th:class="${status.index==status.current?'btn btn-info':'btn btn-outline-info'}"
-                               th:text="${status.index}"></a>
+                            <a th:class="${status.index==currentPage?'btn btn-danger ms-1':'btn btn-outline-danger ms-1'}"
+                               th:text="${status.index}"
+                                th:href="@{index(page=${status.index})}"
+                            ></a>
                         </li>
                     </ul>
                 </div>
