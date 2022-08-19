@@ -7,6 +7,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Date;
 
@@ -31,7 +33,7 @@ public class PatientsMvcApplication {
         };
     }
 
-    @Bean
+    //@Bean
     CommandLineRunner saveUsers(SecurityService securityService){
         return args ->{
             securityService.saveNewUser("user1", "1234", "1234");
@@ -47,6 +49,11 @@ public class PatientsMvcApplication {
             securityService.addRoleToUser("ariana", "ADMIN");
 
         };
+    }
+
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return NoOpPasswordEncoder.getInstance();
     }
 
 }
