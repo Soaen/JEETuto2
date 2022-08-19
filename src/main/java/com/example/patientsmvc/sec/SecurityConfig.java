@@ -1,5 +1,6 @@
 package com.example.patientsmvc.sec;
 
+import com.example.patientsmvc.sec.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,11 +20,13 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    DataSource dataSource;
+    private DataSource dataSource;
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-//        PasswordEncoder passwordEncoder = passwordEncoder();
+        PasswordEncoder passwordEncoder = passwordEncoder();
 //        String encodedPWD = passwordEncoder.encode("1234");
 //        auth.inMemoryAuthentication().withUser("user1").password(encodedPWD).roles("USER");
 //        auth.inMemoryAuthentication().withUser("user2").password(encodedPWD).roles("USER");
@@ -31,13 +34,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery("select username as principal, password as credentials, active from users where username=?")
-                .authoritiesByUsernameQuery("select username as principal, role from users_roles where username=?")
-                .rolePrefix("ROLE_")
-                .passwordEncoder(passwordEncoder());
+//        auth.jdbcAuthentication()
+//                .dataSource(dataSource)
+//                .usersByUsernameQuery("select username as principal, password as credentials, active from users where username=?")
+//                .authoritiesByUsernameQuery("select username as principal, role from users_roles where username=?")
+//                .rolePrefix("ROLE_")
+//                .passwordEncoder(passwordEncoder());
 
+        auth.userDetailsService(userDetailsService);
 
 
 
