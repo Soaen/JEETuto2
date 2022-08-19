@@ -2,6 +2,7 @@ package com.example.patientsmvc;
 
 import com.example.patientsmvc.entities.Patient;
 import com.example.patientsmvc.repositories.PatientRepository;
+import com.example.patientsmvc.sec.service.SecurityService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,6 +28,24 @@ public class PatientsMvcApplication {
 
 
             patientRepository.findAll().forEach(p-> System.out.println(p.getNom()));
+        };
+    }
+
+    @Bean
+    CommandLineRunner saveUsers(SecurityService securityService){
+        return args ->{
+            securityService.saveNewUser("user1", "1234", "1234");
+            securityService.saveNewUser("ariana", "1234", "1234");
+            securityService.saveNewUser("alexis", "1234", "1234");
+
+            securityService.saveNewRole("USER", "");
+            securityService.saveNewRole("ADMIN", "");
+
+            securityService.addRoleToUser("user1", "USER");
+            securityService.addRoleToUser("alexis", "USER");
+            securityService.addRoleToUser("ariana", "USER");
+            securityService.addRoleToUser("ariana", "ADMIN");
+
         };
     }
 
